@@ -40,7 +40,7 @@ export default {
   name: 'CountryHolidayInfo',
   setup() {
     const route = useRoute();
-    const selectedCountry = ref(route.params.countryCode); // Make sure to use the correct parameter name
+    const selectedCountry = ref(route.params.countryCode);
     const selectedYear = ref(new Date().getFullYear());
     const years = ref([
       2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
@@ -48,9 +48,8 @@ export default {
     const holidays = ref<Holiday[]>([]);
 
     const fetchHolidays = async () => {
-      
       if (!selectedCountry.value || !selectedYear.value) {
-        console.warn("Country code or year is not set.");
+        console.warn('Country code or year is not set.');
         return;
       }
 
@@ -65,7 +64,7 @@ export default {
       } catch (error) {
         console.error('Error fetching holidays:', error);
       }
-    };    
+    };
 
     const changeYear = (year: number) => {
       selectedYear.value = year;
