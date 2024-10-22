@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const selectedCountryCode = ref<string | null>(null); 
 
@@ -24,11 +25,16 @@ export default defineComponent({
       required: true,
     }
   },
-  methods: {
-    selectCountry(code: string): void  {
-      selectedCountryCode.value = code; 
-      console.log(code); 
-    },
+  setup() {
+    const router = useRouter(); 
+
+    const selectCountry = (code: string): void => {
+      router.push({ path: `/country/${code}` });
+    };
+
+    return {
+      selectCountry,
+    };
   },
 });
 </script>
