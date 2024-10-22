@@ -1,6 +1,6 @@
 <template>
   <div class="country-holiday-info">
-    <h2>{{ selectedCountry.toUpperCase() }} Holidays - {{ selectedYear }}</h2>
+    <h2>{{ selectedCountry }} Holidays - {{ selectedYear }}</h2>
 
     <div class="holiday-list">
       <div v-for="holiday in holidays" :key="holiday.name" class="holiday-item">
@@ -28,7 +28,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-const baseUrl = process.env.VUE_APP_BASE_URL;
+const baseUrl = 'https://date.nager.at/api/v3';
 
 interface Holiday {
   name: string;
@@ -40,7 +40,7 @@ export default {
   name: 'CountryHolidayInfo',
   setup() {
     const route = useRoute();
-    const selectedCountry = ref(route.params.code);
+    const selectedCountry = ref(route.params.countryCode); // Make sure to use the correct parameter name
     const selectedYear = ref(new Date().getFullYear());
     const years = ref([
       2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
@@ -48,6 +48,12 @@ export default {
     const holidays = ref<Holiday[]>([]);
 
     const fetchHolidays = async () => {
+      
+      if (!selectedCountry.value || !selectedYear.value) {
+        console.warn("Country code or year is not set.");
+        return;
+      }
+
       try {
         const response = await fetch(
           `${baseUrl}/PublicHolidays/${selectedYear.value}/${selectedCountry.value}`
@@ -59,7 +65,7 @@ export default {
       } catch (error) {
         console.error('Error fetching holidays:', error);
       }
-    };
+    };    
 
     const changeYear = (year: number) => {
       selectedYear.value = year;

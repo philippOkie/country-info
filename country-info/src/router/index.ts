@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import CountryPage from '../views/CountryPage.vue';
+import CountryHolidayInfo from '../components/CountryHolidayInfo.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,9 +11,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/country/:code',
-      name: 'country',
-      component: CountryPage,
+      path: '/country/:countryCode',
+      name: 'CountryHolidayInfo',
+      component: CountryHolidayInfo,
       props: true,
     },
   ],

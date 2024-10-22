@@ -18,7 +18,7 @@ import { ref, computed, onMounted, defineComponent } from 'vue';
 import CountryList from '../components/CountryList.vue';
 import CountryWidget from '../components/CountryWidget.vue';
 
-const baseUrl = process.env.VUE_APP_BASE_URL;
+const baseUrl = 'https://date.nager.at/api/v3';
 
 interface Country {
   name: string;

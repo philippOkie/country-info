@@ -17,6 +17,5 @@
   "plugins": ["vue", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error"
-    // Add any additional rules here
   }
 }

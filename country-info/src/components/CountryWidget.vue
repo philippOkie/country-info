@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
 
-const baseUrl = process.env.VUE_APP_BASE_URL;
+const baseUrl = 'https://date.nager.at/api/v3';
 
 export default defineComponent({
   name: 'CountryWidget',
