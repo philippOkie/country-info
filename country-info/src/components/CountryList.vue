@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-for="country in countries" :key="country.code" class="country-item" @click="selectCountry(country.code)">
       {{ country.name }}
     </div>
@@ -34,10 +34,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.country-item {
-  border: 1px solid black;
-  padding: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
+  .country-item {
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .container {
+    overflow: scroll;
+    height: 100vh;
+
+    flex-direction: column;
+  }
 </style>

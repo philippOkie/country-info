@@ -3,11 +3,8 @@
     <div class="container">
       <div>
         <input type="text" placeholder="Search Input" v-model="searchTerm" />
-
-        <div class="country-list">
-          <h3>Countries List</h3>
-          <CountryList :countries="filteredCountries" />
-        </div>
+        <h3>Countries List</h3>
+       <CountryList :countries="filteredCountries" />
       </div>
 
       <div class="random-widget">
@@ -65,19 +62,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  div {
-    scrollbar-width: none;
-  }
-
   .container {
     display: flex;
-    gap: 20px;
+    gap: 9px;
   } 
-
-  .country-list {
-    overflow: scroll;
-    height: 100vh;
-  }
 
   .random-widget {
     overflow: scroll;
