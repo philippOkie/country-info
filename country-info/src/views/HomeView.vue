@@ -20,6 +20,11 @@ import CountryWidget from '../components/CountryWidget.vue';
 
 const baseUrl = 'https://date.nager.at/api/v3';
 
+interface Country {
+  name: string;
+  code: string;
+}
+
 export default defineComponent({
   name: 'HomeView',
   components: { CountryList, CountryWidget },
@@ -31,10 +36,12 @@ export default defineComponent({
       try {
         const response = await fetch(`${baseUrl}/AvailableCountries`);
         const data = await response.json();
-        countries.value = data.map((country: any) => ({
-          name: country.name,
-          code: country.countryCode,
-        }));
+        countries.value = data.map(
+          (country: { name: string; countryCode: string }) => ({
+            name: country.name,
+            code: country.countryCode,
+          })
+        ) as Country[];
       } catch (error) {
         console.error('Error fetching countries:', error);
       }

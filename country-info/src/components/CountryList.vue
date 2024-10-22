@@ -15,13 +15,6 @@
 import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const selectedCountryCode = ref<string | null>(null);
-
-const selectCountry = (code: string): void => {
-  selectedCountryCode.value = code;
-  console.log(code);
-};
-
 export default defineComponent({
   name: 'CountryList',
   props: {
@@ -32,9 +25,14 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const selectedCountryCode = ref<string | null>(null);
 
     const selectCountry = (code: string): void => {
-      router.push({ path: `/country/${code}` });
+      selectedCountryCode.value = code;
+      router.push({
+        name: 'CountryHolidayInfo',
+        params: { countryCode: code },
+      });
     };
 
     return {
