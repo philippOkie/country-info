@@ -8,17 +8,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["vue", "node"],
+    "types": ["vue", "node", "vite/client"],
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*"
   ],
-  
+  "exclude": ["node_modules"]
 }
