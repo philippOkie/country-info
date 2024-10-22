@@ -8,7 +8,7 @@
 
     <div class="random-widget">
       <h3>Random Countries Widget</h3>
-      <CountryWidget :countries="filteredCountries" />
+      <CountryWidget :countries="countries" />
     </div>
   </div>
 </template>
