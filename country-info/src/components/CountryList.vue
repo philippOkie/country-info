@@ -1,20 +1,33 @@
 <template>
   <div>
-    <div v-for="country in countries" :key="country.name" class="country-item">
+    <div v-for="country in countries" :key="country.code" class="country-item" @click="selectCountry(country.code)">
       {{ country.name }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
+
+const selectedCountryCode = ref<string | null>(null); 
+
+const selectCountry = (code: string): void => {
+  selectedCountryCode.value = code; 
+  console.log(code);
+};
 
 export default defineComponent({
   name: 'CountryList',
   props: {
     countries: {
-      type: Array as PropType<{ name: string; holiday: string; date: string }[]>,
+      type: Array as PropType<{ name: string; code: string; }[]>,
       required: true,
+    }
+  },
+  methods: {
+    selectCountry(code: string): void  {
+      selectedCountryCode.value = code; 
+      console.log(code); 
     },
   },
 });

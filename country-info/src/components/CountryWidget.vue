@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="country in countries" :key="country.name" class="widget-item">
+    <div v-for="country in randomCountries" :key="country.name" class="widget-item">
       <div><strong>{{ country.name }}</strong></div>
       <div>Next Holiday: {{ country.holiday }}</div>
       <div>Date: {{ country.date }}</div>
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, computed } from 'vue';
 
 export default defineComponent({
   name: 'CountryWidget',
@@ -18,6 +18,19 @@ export default defineComponent({
       type: Array as PropType<{ name: string; holiday: string; date: string }[]>,
       required: true,
     },
+  },
+  setup(props) {
+    const getRandomCountries = (countries: { name: string; holiday: string; date: string }[], count: number) => {
+      if (countries.length === 0) return [];
+      const shuffled = countries.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, Math.min(count, countries.length));
+    };
+
+    const randomCountries = computed(() => getRandomCountries(props.countries, 3));
+
+    return {
+      randomCountries,
+    };
   },
 });
 </script>
