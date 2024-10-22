@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; // Import the useRoute hook
+import { useRoute } from 'vue-router'; 
 
 const baseUrl = 'https://date.nager.at/api/v3';
 
@@ -39,8 +39,8 @@ interface Holiday {
 export default {
   name: 'CountryHolidayInfo',
   setup() {
-    const route = useRoute(); // Get the current route
-    const selectedCountry = ref(route.params.code || 'US'); // Use the country code from the URL, default to 'US'
+    const route = useRoute();
+    const selectedCountry = ref(route.params.code || 'US');
     const selectedYear = ref(new Date().getFullYear());
     const years = ref([2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]);
     const holidays = ref<Holiday[]>([]);
@@ -59,15 +59,15 @@ export default {
     };
 
     const changeYear = (year: number) => {
-      selectedYear.value = year; // Update the selected year
-      fetchHolidays(); // Fetch holidays for the new year
+      selectedYear.value = year; 
+      fetchHolidays();
     };
 
     const formatDate = (date: string) => {
-      return new Date(date).toLocaleDateString(); // Format the date
+      return new Date(date).toLocaleDateString(); 
     };
 
-    onMounted(fetchHolidays); // Fetch holidays when the component mounts
+    onMounted(fetchHolidays);
 
     return {
       selectedCountry,
