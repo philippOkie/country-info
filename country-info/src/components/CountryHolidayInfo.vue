@@ -28,7 +28,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
-const baseUrl = 'https://date.nager.at/api/v3';
+const baseUrl = process.env.VUE_APP_BASE_URL;
 
 interface Holiday {
   name: string;
