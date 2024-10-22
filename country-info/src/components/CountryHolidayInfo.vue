@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; 
+import { useRoute } from 'vue-router';
 
 const baseUrl = 'https://date.nager.at/api/v3';
 
@@ -40,31 +40,34 @@ export default {
   name: 'CountryHolidayInfo',
   setup() {
     const route = useRoute();
-    const selectedCountry = ref(route.params.code || 'US');
+    const selectedCountry = ref(route.params.code);
     const selectedYear = ref(new Date().getFullYear());
-    const years = ref([2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030]);
+    const years = ref([
+      2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
+    ]);
     const holidays = ref<Holiday[]>([]);
 
     const fetchHolidays = async () => {
       try {
-        const response = await fetch(`${baseUrl}/PublicHolidays/${selectedYear.value}/${selectedCountry.value}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        const response = await fetch(
+          `${baseUrl}/PublicHolidays/${selectedYear.value}/${selectedCountry.value}`
+        );
+        if (!response.ok) throw new Error('Network response was not ok');
+
         const data = await response.json();
-        holidays.value = data; 
+        holidays.value = data;
       } catch (error) {
         console.error('Error fetching holidays:', error);
       }
     };
 
     const changeYear = (year: number) => {
-      selectedYear.value = year; 
+      selectedYear.value = year;
       fetchHolidays();
     };
 
     const formatDate = (date: string) => {
-      return new Date(date).toLocaleDateString(); 
+      return new Date(date).toLocaleDateString();
     };
 
     onMounted(fetchHolidays);
@@ -82,30 +85,30 @@ export default {
 </script>
 
 <style scoped>
-  .holiday-list {
-    height: 50vh;
-    overflow: scroll;
-  }
+.holiday-list {
+  height: 50vh;
+  overflow: scroll;
+}
 
-  .holiday-item {
-    margin: 10px;
-    border: 1px solid black;
-    padding: 10px;
+.holiday-item {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
 
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
-  .year-buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
+.year-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-  .year-button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-right: 5px;
-    cursor: pointer;
-  }
+.year-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
 </style>

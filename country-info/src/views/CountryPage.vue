@@ -11,7 +11,7 @@ import CountryHolidayInfo from '../components/CountryHolidayInfo.vue';
 export default defineComponent({
   name: 'CountryPage',
   components: {
-    CountryHolidayInfo, 
+    CountryHolidayInfo,
   },
 });
 </script>

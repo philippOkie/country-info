@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div v-for="country in randomCountries" :key="country.name" class="widget-item">
-      <div><strong>{{ country.name }}</strong></div>
+    <div
+      v-for="country in randomCountries"
+      :key="country.name"
+      class="widget-item"
+    >
+      <div>
+        <strong>{{ country.name }}</strong>
+      </div>
       <div>Next Holiday: {{ country.holiday }}</div>
       <div>Date: {{ country.date }}</div>
     </div>
@@ -23,9 +29,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const randomCountries = ref<{ name: string; code: string; holiday?: string; date?: string }[]>([]);
+    const randomCountries = ref<
+      { name: string; code: string; holiday?: string; date?: string }[]
+    >([]);
 
-    const getRandomCountries = (countries: { name: string; code: string }[], count: number) => {
+    const getRandomCountries = (
+      countries: { name: string; code: string }[],
+      count: number
+    ) => {
       if (countries.length === 0) return [];
       const shuffled = countries.sort(() => 0.5 - Math.random());
       return shuffled.slice(0, Math.min(count, countries.length));
@@ -37,15 +48,17 @@ export default defineComponent({
 
         const countriesWithHolidays = await Promise.all(
           selectedCountries.map(async (country) => {
-            const holidayResponse = await fetch(`${baseUrl}/NextPublicHolidays/${country.code}`);
+            const holidayResponse = await fetch(
+              `${baseUrl}/NextPublicHolidays/${country.code}`
+            );
             const holidayData = await holidayResponse.json();
 
-            const nextHoliday = holidayData[0]; 
+            const nextHoliday = holidayData[0];
 
             return {
               ...country,
-              holiday: nextHoliday?.name || 'No holiday found', 
-              date: nextHoliday?.date || 'N/A', 
+              holiday: nextHoliday?.name || 'No holiday found',
+              date: nextHoliday?.date || 'N/A',
             };
           })
         );
@@ -56,12 +69,15 @@ export default defineComponent({
       }
     };
 
-    watch(() => props.countries, (newCountries) => {
-      if (newCountries.length > 0) {
-        fetchNextHolidays(); 
-      }
-    }, { immediate: true });
-
+    watch(
+      () => props.countries,
+      (newCountries) => {
+        if (newCountries.length > 0) {
+          fetchNextHolidays();
+        }
+      },
+      { immediate: true }
+    );
 
     return {
       randomCountries,
